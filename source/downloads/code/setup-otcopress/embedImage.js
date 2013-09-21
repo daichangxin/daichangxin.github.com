@@ -1,0 +1,1 @@
+{%img center images/setup-otcopress/1.png %}
