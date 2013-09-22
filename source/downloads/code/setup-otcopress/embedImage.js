@@ -1,1 +1,1 @@
-{%img center images/setup-otcopress/1.png %}
+{%img center /images/setup-otcopress/1.png %}//别忘了images前的反斜杠!

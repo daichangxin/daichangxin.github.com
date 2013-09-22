@@ -29,7 +29,7 @@ gem uninstall rake
 看到不是指定的版本的删掉就成功了, 当然这里还有其他的方法:<http://stackoverflow.com/questions/6080040/you-have-already-activated-rake-0-9-0-but-your-gemfile-requires-rake-0-8-7>
 ### 中文解码的问题
 网上搜了一堆关于ruby语言转码的解决方法, 可是我追踪进去看时原生的代码里本来就是utf-8解码的, 再后来看到一个帖子说cmd/powershell都是默认ansic解码的, 我就尝试用git-bash来调用"rake generate"命令试试, 结果成功了(博客文章是用EditPlus改为了utf-8格式). 对了我还设置了环境变量, 不知道这个是不是也起到了作用:
-{% img center images/setup-otcopress/1.png %}
+{% img center /images/setup-otcopress/1.png %}
 ### 代码高亮的问题
 我按照网上的教程设置了之后一直提示说无法解析语言, 于是我索性把codeblock里的lang属性去掉正常了, 高亮的代码是:
 {% include_code setup-otcopress/embedCode.js %}
@@ -44,5 +44,7 @@ gem uninstall rake
 ###8 嵌入图片的代码
 {% include_code setup-otcopress/embedImage.js %}
 center可以替换为left/right, 图片在页面的位置对齐参数. 这里的图片是放在source/images/setup-otcopress目录下, setup-otcopress目录是我自己创建的, 方便管理图片.
+###9 发布和提交代码到Github
+http://octopress.org/docs/deploying/github/
 
 Ps:这个语法真是折腾死我了, 看来还是要用习惯才行. 一个不错的在线编辑器: http://benweet.github.io/stackedit/
