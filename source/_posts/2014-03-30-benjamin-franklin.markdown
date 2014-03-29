@@ -3,7 +3,7 @@ layout: post
 title: "Benjamin Franklin"
 date: 2014-03-30 04:10
 comments: true
-categories: 
+categories: read
 ---
 第一次在kindle上买书, 就是这本<富兰克林自传>, 看完了后有点不知所云完全体会不到那种'影响了无数美国青年的励志书籍'的那种感觉, 后来看了一些书评再回头想想书里的内容, 才发觉富兰克林真是个厉害的人物. 
 
