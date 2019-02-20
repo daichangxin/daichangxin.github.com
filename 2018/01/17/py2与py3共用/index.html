@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>py2与py3共用 | xin&#39;s blog</title>
+  <meta name="author" content="dai changxin">
+  
+  <meta name="description" content="编译同时安装python2与python3后，使用python2运行：1py -2 hello.py
+使用python3运行：1py -3 hello.py
+如果不想每次运行都加入参数-2和-3，可以把启动类型写入py文件中，python2文件在代码开头加入：1#! python2
+python3则">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="py2与py3共用">
+  <meta property="og:site_name" content="xin&#39;s blog">
+
+  
+    <meta property="og:image" content="undefined">
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="xin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <script src="/js/jquery-3.2.1.min.js"></script>
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">xin&#39;s blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-01-17T13:08:22.000Z"><a href="/2018/01/17/py2与py3共用/">2018-01-17</a></time>
+      
+      
+  
+    <h1 class="title">py2与py3共用</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>同时安装python2与python3后，使用python2运行：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">py</span> -<span class="number">2</span> hello.<span class="keyword">py</span></span><br></pre></td></tr></table></figure></p>
+<p>使用python3运行：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">py</span> -<span class="number">3</span> hello.<span class="keyword">py</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不想每次运行都加入参数<code>-2</code>和<code>-3</code>，可以把启动类型写入py文件中，python2文件在代码开头加入：<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! python2</span></span><br></pre></td></tr></table></figure></p>
+<p>python3则是在代码开头加入：<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! python3</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="使用pip"><a href="#使用pip" class="headerlink" title="使用pip"></a>使用pip</h3><p>python2命令：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py -<span class="number">2</span> -m pip <span class="keyword">install</span> XXXX</span><br></pre></td></tr></table></figure></p>
+<p>python3命令：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py -<span class="number">3</span> -m pip <span class="keyword">install</span> XXXX</span><br></pre></td></tr></table></figure></p>
+<h3 id="python2-和-coding-utf-8-哪个写在前面？"><a href="#python2-和-coding-utf-8-哪个写在前面？" class="headerlink" title="#! python2 和 # coding: utf-8 哪个写在前面？"></a>#! python2 和 # coding: utf-8 哪个写在前面？</h3><p>#! python2 需要放在第一行，编码说明可以放在第二行。所以文件开头应该类似于：<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! python2</span></span><br><span class="line"># coding: utf-<span class="number">8</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/python/">python</a>
+  </div>
+
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+	<section id="comment">
+		
+
+	</section>
+	
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:blog.greatxin.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/egret/">egret</a><small>2</small></li>
+  
+    <li><a href="/categories/flash/">flash</a><small>1</small></li>
+  
+    <li><a href="/categories/git/">git</a><small>1</small></li>
+  
+    <li><a href="/categories/egret/h5/">h5</a><small>1</small></li>
+  
+    <li><a href="/categories/jenkins/">jenkins</a><small>1</small></li>
+  
+    <li><a href="/categories/python/">python</a><small>2</small></li>
+  
+    <li><a href="/categories/脚本/">脚本</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/jenkins/">jenkins</a><small>1</small></li>
+  
+    <li><a href="/tags/脚本/">脚本</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2019 dai changxin
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>xin&#39;s blog</title>
+  <meta name="author" content="dai changxin">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="xin&#39;s blog">
+
+  
+    <meta property="og:image" content="undefined">
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="xin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <script src="/js/jquery-3.2.1.min.js"></script>
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">xin&#39;s blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-02-20T07:35:00.000Z"><a href="/2019/02/20/jenkins-setup/">2019-02-20</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2019/02/20/jenkins-setup/">jenkins配置</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><ol>
+<li>强烈建议使用jenkins.war文件，并用命令行启动jenkins，这样可以自定义端口号，访问路径后缀，和自定义workspace的目录</li>
+<li>可能会提示说java的版本过高，启动时加入参数 <code>--enable-future-java</code>来解决</li>
+<li>我的启动脚本：</li>
+</ol>
+<p>mac:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">JENKINS_HOME</span>=/Users/xin/workspace/jenkins</span><br><span class="line">java -jar jenkins.war --enable-future-java <span class="attribute">--httpPort</span>=8080 <span class="attribute">--prefix</span>=/jenkins</span><br></pre></td></tr></table></figure></p>
+<p>win:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">set</span> <span class="attribute">JENKINS_HOME</span>=C:\jenkins</span><br><span class="line">java -jar jenkins.war --enable-future-java <span class="attribute">--httpPort</span>=8080 <span class="attribute">--prefix</span>=/jenkins</span><br></pre></td></tr></table></figure></p>
+<h2 id="账号管理"><a href="#账号管理" class="headerlink" title="账号管理"></a>账号管理</h2><ol>
+<li>默认是admin登录，登录密码在<code>/secrets/initialAdminPassword</code>中，不要尝试创建用户名为<code>admin</code>或<code>administrator</code>的账号了</li>
+<li>在<code>系统管理</code>-&gt;<code>全局安全设置</code>中启用jenkins用户注册，并勾选<code>注册用户可做任何事</code></li>
+<li>注册一个管理员账户，如<code>admin001</code>，并进入全局安全设置中把<code>注册用户可做任何事</code>取消，选择<code>项目矩阵授权策略</code>, 然后勾选<code>admin001</code>账户拥有全部权限</li>
+<li>到此，可以任何人注册账户，但是没有任何权限，管理员账户可以手动给每个账户加权限</li>
+</ol>
+<h2 id="乱码问题"><a href="#乱码问题" class="headerlink" title="乱码问题"></a>乱码问题</h2><ol>
+<li><p>执行脚本中有中文输出，显示乱码：<br>在<code>系统管理</code>-&gt;<code>系统设置</code>-&gt;<code>环境变量</code>中，增加键值对，key为<code>LANG</code>,value为<code>zh_CN.UTF-8</code></p>
+</li>
+<li><p>bat脚本中有乱码<br>在每个bat脚本执行前，加入一行bat脚本：</p>
+</li>
+</ol>
+<p><code>chcp 65001</code></p>
+<h2 id="环境问题"><a href="#环境问题" class="headerlink" title="环境问题"></a>环境问题</h2><ol>
+<li>执行时会遇到环境找不到的问题，比如egret编译会提示说找不到引擎：<br>因为jenkins使用了自己的APP_DATA环境目录，并不是系统默认的，所以找不到各个引擎对应的位置，在jenkins的<code>环境变量</code>中增加键值对，key为<code>APPDATA</code>，value为<code>C:\\Users\\你的计算机用户名\\AppData\\Roaming\\</code></li>
+</ol>
+<h2 id="Git使用的问题"><a href="#Git使用的问题" class="headerlink" title="Git使用的问题"></a>Git使用的问题</h2><ol>
+<li><p>默认git只拉取一个仓库到本job的工作目录中，如果要拉取多个git:<br>pipeline的job使用<code>dir(&#39;目录名&#39;)</code>实现<br>自由风格job使用<code>Git Plugin</code>自带的分目录功能:<code>Additional Behaviours</code>-&gt;<code>Check out to a sub-directory</code>即可</p>
+</li>
+<li><p>提示‘tell me who you are’<br>执行脚本中加入：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--local user.email <span class="string">"你的邮箱"</span></span><br><span class="line">git<span class="built_in"> config </span>--local user.name <span class="string">"你的用户名"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>账号和密码方式操作https路径的git仓库，会出现卡住而且没有任何报错提示问题<br>在全局密钥中增加账号密码的密钥，并使用该密钥操作git仓库。其次<strong>仓库的路径要加上用户名</strong>，比如: <code>https://daichangxin@gitlab.xiangwushuo.com/game/gameBuild.git</code></p>
+</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
+<li><p>调用其他job传参<br>传参中如果使用单引号，则是直接原封不动的传递过去，如果是双引号，则是先在本job中解析完，再传递过去。先解析的优势是有些变量是只有本job才知道的。<br>例如：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">copyFrom</span> = <span class="string">"<span class="variable">$&#123;JENKINS_HOME&#125;</span>\\workspace\\<span class="variable">$&#123;JOB_NAME&#125;</span>\\source\\<span class="variable">$&#123;game_id&#125;</span>\\bin-release\\web\\<span class="variable">$&#123;client_version&#125;</span>"</span></span><br><span class="line">copyTo = <span class="string">"<span class="variable">$&#123;JENKINS_HOME&#125;</span>\\workspace\\gameBuild\\gamebox\\<span class="variable">$&#123;build_type&#125;</span>\\<span class="variable">$&#123;game_id&#125;</span>\\"</span></span><br><span class="line">build job: <span class="string">'gameBuild'</span>, parameters: [string(name: <span class="string">'copyFrom'</span>, value: copyFrom), string(name: <span class="string">'copyTo'</span>, value: copyTo)]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>bat执行参数过长或有空格<br>路径过长或有空格需要用引号括起来，而且路径要用反斜杠<code>\\</code>不能用<code>/</code>，否则就会提示参数不正确，因为bat的参数是用斜杠来标识参数名的<br>复制文件到目标目录中，如果不想被提示说目标是不是目录，则在目标路径后方加上<code>\\</code>，如：</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chcp 65001 &amp; xcopy "source<span class="symbol">\\</span><span class="variable">%game_id%</span><span class="symbol">\\</span>bin-release<span class="symbol">\\</span>web<span class="symbol">\\</span><span class="variable">%client_version%</span>" "<span class="variable">%JENKINS_HOME%</span><span class="symbol">\\</span>workspace<span class="symbol">\\</span>gameBuild<span class="symbol">\\</span>gamebox<span class="symbol">\\</span><span class="variable">%build_type%</span><span class="symbol">\\</span><span class="variable">%game_id%</span><span class="symbol">\\</span>" /s /h /d /y</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-01-17T13:08:22.000Z"><a href="/2018/01/17/py2与py3共用/">2018-01-17</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2018/01/17/py2与py3共用/">py2与py3共用</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>同时安装python2与python3后，使用python2运行：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">py</span> -<span class="number">2</span> hello.<span class="keyword">py</span></span><br></pre></td></tr></table></figure></p>
+<p>使用python3运行：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">py</span> -<span class="number">3</span> hello.<span class="keyword">py</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不想每次运行都加入参数<code>-2</code>和<code>-3</code>，可以把启动类型写入py文件中，python2文件在代码开头加入：<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! python2</span></span><br></pre></td></tr></table></figure></p>
+<p>python3则是在代码开头加入：<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! python3</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="使用pip"><a href="#使用pip" class="headerlink" title="使用pip"></a>使用pip</h3><p>python2命令：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py -<span class="number">2</span> -m pip <span class="keyword">install</span> XXXX</span><br></pre></td></tr></table></figure></p>
+<p>python3命令：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py -<span class="number">3</span> -m pip <span class="keyword">install</span> XXXX</span><br></pre></td></tr></table></figure></p>
+<h3 id="python2-和-coding-utf-8-哪个写在前面？"><a href="#python2-和-coding-utf-8-哪个写在前面？" class="headerlink" title="#! python2 和 # coding: utf-8 哪个写在前面？"></a>#! python2 和 # coding: utf-8 哪个写在前面？</h3><p>#! python2 需要放在第一行，编码说明可以放在第二行。所以文件开头应该类似于：<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! python2</span></span><br><span class="line"># coding: utf-<span class="number">8</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-01-12T07:43:37.000Z"><a href="/2018/01/12/手机h5复制功能/">2018-01-12</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2018/01/12/手机h5复制功能/">手机h5复制功能</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>一定要加上<code>readonly=true</code>，否则在ios手机上会出现输入法跳出来。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let <span class="built_in">input</span> = document.createElement(<span class="string">"input"</span>);</span><br><span class="line"><span class="built_in">input</span>.readOnly = <span class="literal">true</span>;</span><br><span class="line"><span class="built_in">input</span>.value = text;</span><br><span class="line">document.body.appendChild(<span class="built_in">input</span>);</span><br><span class="line"><span class="built_in">input</span>.<span class="built_in">select</span>();</span><br><span class="line"><span class="built_in">input</span>.setSelectionRange(<span class="number">0</span>, <span class="built_in">input</span>.value.length);</span><br><span class="line">document.execCommand(<span class="string">"Copy"</span>);</span><br><span class="line">document.body.removeChild(<span class="built_in">input</span>);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-01-12T05:44:39.000Z"><a href="/2018/01/12/egret在Android4-x下黑屏/">2018-01-12</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2018/01/12/egret在Android4-x下黑屏/">egret在Android4.x下黑屏</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>主要是webGL不支持导致，在<code>index.html</code>中判断如果安卓版本过低则使用canvas替代：<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> renderMode = <span class="string">"webgl"</span>;</span><br><span class="line"><span class="built_in">var</span> <span class="built_in">index</span> = navigator.userAgent.indexOf(<span class="string">"Android 4."</span>)</span><br><span class="line"><span class="built_in">if</span> (<span class="built_in">index</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    renderMode = <span class="string">"canvas"</span>;</span><br><span class="line">&#125;</span><br><span class="line">egret.runEgret(&#123;</span><br><span class="line">    renderMo<span class="symbol">de:</span> renderMode,</span><br><span class="line">    audioTy<span class="symbol">pe:</span> <span class="number">0</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-03-15T03:01:11.000Z"><a href="/2017/03/15/bat-return-control/">2017-03-15</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/15/bat-return-control/">bat脚本不返回控制权</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>bat调用bat时, 控制权不会返回到第一个bat脚本, 导致第二个执行完就结束了, 需要加上call来调用。这里是jenkins的启动脚本，在启动jenskin前会先同步一次job和scripts库。<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> JENKINS_HOME=D:\dev\jenkins</span><br><span class="line"><span class="built_in">cd</span> /d <span class="variable">%JENKINS_HOME%</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">call</span> jenkins_updateScripts.bat</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> "restart Jenkins: http://localhost:<span class="number">1201</span>"</span><br><span class="line"><span class="built_in">net</span> stop jenkins</span><br><span class="line">java -jar <span class="variable">%JENKINS_HOME%</span>\jenkins.war --httpPort=<span class="number">1201</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-03-15T02:55:53.000Z"><a href="/2017/03/15/use-git-initialize-repo/">2017-03-15</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/03/15/use-git-initialize-repo/">git将本地代码提交到远程仓库</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h5 id="本地初始化："><a href="#本地初始化：" class="headerlink" title="本地初始化："></a>本地初始化：</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git init</span></span><br></pre></td></tr></table></figure>
+<h5 id="连接远程仓库"><a href="#连接远程仓库" class="headerlink" title="连接远程仓库"></a>连接远程仓库</h5><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https:<span class="regexp">//gi</span>t.coding.net<span class="regexp">/greatxin/</span>jenkins.git</span><br></pre></td></tr></table></figure>
+<h5 id="拉取一次"><a href="#拉取一次" class="headerlink" title="拉取一次"></a>拉取一次</h5><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin <span class="literal">master</span></span><br></pre></td></tr></table></figure>
+<h5 id="加入本地文件并提交"><a href="#加入本地文件并提交" class="headerlink" title="加入本地文件并提交"></a>加入本地文件并提交</h5><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git</span> <span class="keyword">add </span>.</span><br><span class="line"><span class="symbol">git</span> commit -m <span class="string">"init"</span></span><br><span class="line"><span class="symbol">git</span> <span class="keyword">push </span>origin master</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-10-01T05:50:35.000Z"><a href="/2015/10/01/flashbuilderquit/">2015-10-01</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/10/01/flashbuilderquit/">FlashBuilder闪退</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>今天遇到打开FlashBuilder秒退, 网上找到了解决办法:<br>进入工作目录下<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.metadata/.plugins/org<span class="selector-class">.eclipse</span><span class="selector-class">.core</span><span class="selector-class">.resources</span></span><br></pre></td></tr></table></figure></p>
+<p>删除.snap文件<br>如果是苹果系统，则目录有可能是：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.metadata</span>\<span class="selector-tag">org</span><span class="selector-class">.eclipse</span><span class="selector-class">.core</span><span class="selector-class">.resources</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-10-01T05:38:12.000Z"><a href="/2015/10/01/simplepyinstall/">2015-10-01</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/10/01/simplepyinstall/">pyinstaller简单打包</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>下载<a href="http://sourceforge.net/projects/pyinstaller/" target="_blank" rel="noopener">pyInstaller</a> , 解压后不需要执行安装就可以用<br>下载<a href="http://sourceforge.net/projects/pywin32/" target="_blank" rel="noopener">pywin32</a> , 这个是导出exe依赖的库</p>
+<p>写一个bat文件, 内容:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p a=拖入py文件：</span><br><span class="line">python C:\Python27\pyinstaller-<span class="number">2</span>.<span class="number">0</span>\pyinstaller.py -F <span class="variable">%a%</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure></p>
+<p>保存为pyInstaller.bat文件, 双击打开bat文件, 拖入py文件, 按回车就会自动打包成一个独立的exe文件.<br>其他参数:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-F, --onefile Py代码只有一个文件</span><br><span class="line">-D, --onedir Py代码放在一个目录中（默认是这个）</span><br><span class="line">-K, --tk 包含TCL/TK</span><br><span class="line">-d, --debug 生成debug模式的exe文件</span><br><span class="line">-w, --windowed, --noconsole 窗体exe文件(Windows Only)</span><br><span class="line">-c, --nowindowed, --console 控制台exe文件(Windows Only)</span><br><span class="line">-X, --upx 使用upx压缩exe文件</span><br><span class="line">-o <span class="built_in">DIR</span>, --out=<span class="built_in">DIR</span> 设置spec文件输出的目录，默认在PyInstaller同目录</span><br><span class="line">--icon=&lt;FILE.ICO&gt; 加入图标（Windows Only）</span><br><span class="line">-v FILE, --version=FILE 加入版本信息文件</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:blog.greatxin.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/egret/">egret</a><small>2</small></li>
+  
+    <li><a href="/categories/flash/">flash</a><small>1</small></li>
+  
+    <li><a href="/categories/git/">git</a><small>1</small></li>
+  
+    <li><a href="/categories/egret/h5/">h5</a><small>1</small></li>
+  
+    <li><a href="/categories/jenkins/">jenkins</a><small>1</small></li>
+  
+    <li><a href="/categories/python/">python</a><small>2</small></li>
+  
+    <li><a href="/categories/脚本/">脚本</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/jenkins/">jenkins</a><small>1</small></li>
+  
+    <li><a href="/tags/脚本/">脚本</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2019 dai changxin
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

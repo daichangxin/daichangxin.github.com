@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>egret在Android4.x下黑屏 | xin&#39;s blog</title>
+  <meta name="author" content="dai changxin">
+  
+  <meta name="description" content="主要是webGL不支持导致，在index.html中判断如果安卓版本过低则使用canvas替代：123456789var renderMode = &quot;webgl&quot;;var index = navigator.userAgent.indexOf(&quot;Android 4.&quot;)if (index &amp;gt;=">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="egret在Android4.x下黑屏">
+  <meta property="og:site_name" content="xin&#39;s blog">
+
+  
+    <meta property="og:image" content="undefined">
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="xin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <script src="/js/jquery-3.2.1.min.js"></script>
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">xin&#39;s blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-01-12T05:44:39.000Z"><a href="/2018/01/12/egret在Android4-x下黑屏/">2018-01-12</a></time>
+      
+      
+  
+    <h1 class="title">egret在Android4.x下黑屏</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>主要是webGL不支持导致，在<code>index.html</code>中判断如果安卓版本过低则使用canvas替代：<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> renderMode = <span class="string">"webgl"</span>;</span><br><span class="line"><span class="built_in">var</span> <span class="built_in">index</span> = navigator.userAgent.indexOf(<span class="string">"Android 4."</span>)</span><br><span class="line"><span class="built_in">if</span> (<span class="built_in">index</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    renderMode = <span class="string">"canvas"</span>;</span><br><span class="line">&#125;</span><br><span class="line">egret.runEgret(&#123;</span><br><span class="line">    renderMo<span class="symbol">de:</span> renderMode,</span><br><span class="line">    audioTy<span class="symbol">pe:</span> <span class="number">0</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/egret/">egret</a>
+  </div>
+
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+	<section id="comment">
+		
+
+	</section>
+	
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:blog.greatxin.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/egret/">egret</a><small>2</small></li>
+  
+    <li><a href="/categories/flash/">flash</a><small>1</small></li>
+  
+    <li><a href="/categories/git/">git</a><small>1</small></li>
+  
+    <li><a href="/categories/egret/h5/">h5</a><small>1</small></li>
+  
+    <li><a href="/categories/jenkins/">jenkins</a><small>1</small></li>
+  
+    <li><a href="/categories/python/">python</a><small>2</small></li>
+  
+    <li><a href="/categories/脚本/">脚本</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/jenkins/">jenkins</a><small>1</small></li>
+  
+    <li><a href="/tags/脚本/">脚本</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2019 dai changxin
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
