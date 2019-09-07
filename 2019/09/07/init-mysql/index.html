@@ -54,28 +54,33 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="xin&#39;s blog">
-<meta property="og:url" content="http://blog.greatxin.com/page/2/index.html">
+  <meta name="description" content="CentOS初始化mysql的一些必备的流程记录。 启动1service mysqld start 查看状态：1service mysqld status 登录找到初始密码12//先找到安装信息cat /etc/my.cnf 找到log-error=/var/log/mysqld.log。查看这个文件1cat /var/log/mysqld.log 找到A temporary password i">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初始化mysql">
+<meta property="og:url" content="http://blog.greatxin.com/2019/09/07/init-mysql/index.html">
 <meta property="og:site_name" content="xin&#39;s blog">
+<meta property="og:description" content="CentOS初始化mysql的一些必备的流程记录。 启动1service mysqld start 查看状态：1service mysqld status 登录找到初始密码12//先找到安装信息cat /etc/my.cnf 找到log-error=/var/log/mysqld.log。查看这个文件1cat /var/log/mysqld.log 找到A temporary password i">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-09-07T13:14:27.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xin&#39;s blog">
-  <link rel="canonical" href="http://blog.greatxin.com/page/2/">
+<meta name="twitter:title" content="初始化mysql">
+<meta name="twitter:description" content="CentOS初始化mysql的一些必备的流程记录。 启动1service mysqld start 查看状态：1service mysqld status 登录找到初始密码12//先找到安装信息cat /etc/my.cnf 找到log-error=/var/log/mysqld.log。查看这个文件1cat /var/log/mysqld.log 找到A temporary password i">
+  <link rel="canonical" href="http://blog.greatxin.com/2019/09/07/init-mysql/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>xin's blog</title>
+  <title>初始化mysql | xin's blog</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -185,17 +190,18 @@
         <div class="content-wrap">
             
 
-          <div id="content" class="content page-home">
+          <div id="content" class="content page-post-detail">
             
-  <section id="posts" class="posts-expand">
-      
+
+  <div id="posts" class="posts-expand">
+    
 
   <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2015/10/01/flashbuilderquit/">
+    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2019/09/07/init-mysql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dai changxin">
@@ -207,9 +213,8 @@
       <meta itemprop="name" content="xin's blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2015/10/01/flashbuilderquit/" class="post-title-link" itemprop="url">FlashBuilder闪退</a>
+        <h1 class="post-title" itemprop="name headline">初始化mysql
+
           
         </h1>
 
@@ -224,19 +229,11 @@
                 
               
 
-              <time title="Created: 2015-10-01 13:50:35" itemprop="dateCreated datePublished" datetime="2015-10-01T13:50:35+08:00">2015-10-01</time>
+              <time title="Created: 2019-09-07 21:01:21 / Modified: 21:14:27" itemprop="dateCreated datePublished" datetime="2019-09-07T21:01:21+08:00">2019-09-07</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-25 11:21:14" itemprop="dateModified" datetime="2019-08-25T11:21:14+08:00">2019-08-25</time>
-              </span>
             
           
 
@@ -251,118 +248,64 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>今天遇到打开FlashBuilder秒退, 网上找到了解决办法:<br>进入工作目录下<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.metadata/.plugins/org<span class="selector-class">.eclipse</span><span class="selector-class">.core</span><span class="selector-class">.resources</span></span><br></pre></td></tr></table></figure></p>
-<p>删除.snap文件<br>如果是苹果系统，则目录有可能是：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.metadata</span>\<span class="selector-tag">org</span><span class="selector-class">.eclipse</span><span class="selector-class">.core</span><span class="selector-class">.resources</span></span><br></pre></td></tr></table></figure>
-        
-      
+        <p>CentOS初始化mysql的一些必备的流程记录。</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld <span class="literal">start</span></span><br></pre></td></tr></table></figure>
+<p>查看状态：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service mysqld status</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><p>找到初始密码<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span>先找到安装信息</span><br><span class="line">cat <span class="regexp">/etc/my</span>.cnf</span><br></pre></td></tr></table></figure></p>
+<p>找到<code>log-error=/var/log/mysqld.log</code>。<br>查看这个文件<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/mysqld.<span class="built_in">log</span></span><br></pre></td></tr></table></figure></p>
+<p>找到<code>A temporary password is generated for root@localhost: xxxxxxx</code>字样。<br>使用这个密码登录<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="comment">// 回车，输入密码</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="设置简单密码（mysql命令环境下）"><a href="#设置简单密码（mysql命令环境下）" class="headerlink" title="设置简单密码（mysql命令环境下）"></a>设置简单密码（mysql命令环境下）</h3><p>需要先修改密码策略：<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> global <span class="comment">validate_password.policy=0</span>;  <span class="comment">//简单密码</span></span><br><span class="line"><span class="keyword">set</span> global <span class="comment">validate_password.length=3</span>;  <span class="comment">//最低三位</span></span><br></pre></td></tr></table></figure></p>
+<p>执行修改：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> = <span class="keyword">PASSWORD</span>(<span class="string">'123456'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="授权指定ip访问mysql服务器"><a href="#授权指定ip访问mysql服务器" class="headerlink" title="授权指定ip访问mysql服务器"></a>授权指定ip访问mysql服务器</h3><p>首先在服务器的安全策略中添加指定ip可访问3306端口。其次，登录mysql，执行语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'xxx.xxx.xxx.xxx'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'1234'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span><br><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span><br></pre></td></tr></table></figure></p>
+<p>如果要任意ip都可访问的话就将地址设置成<code>%</code>即可。</p>
+<p>参考：<br><a href="https://blog.csdn.net/fanpeizhong/article/details/73557202" target="_blank" rel="noopener">CentOS 7 64bit下安装并初始化mysql 5.7 完整过程</a><br><a href="http://www.ip138.com/" target="_blank" rel="noopener">IP地址查询</a><br><a href="https://www.sequelpro.com/" target="_blank" rel="noopener">Sequel Pro</a></p>
+
     </div>
 
     
     
     
+        
+      
+
       <footer class="post-footer">
-          <div class="post-eof"></div>
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/07/install-easyswoole/" rel="next" title="安装easyswoole">
+                  <i class="fa fa-chevron-left"></i> 安装easyswoole
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
         
       </footer>
+    
   </div>
   
   
   
   </article>
 
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2015/10/01/simplepyinstall/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="dai changxin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="xin's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2015/10/01/simplepyinstall/" class="post-title-link" itemprop="url">pyinstaller简单打包</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2015-10-01 13:38:12" itemprop="dateCreated datePublished" datetime="2015-10-01T13:38:12+08:00">2015-10-01</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-25 11:21:14" itemprop="dateModified" datetime="2019-08-25T11:21:14+08:00">2019-08-25</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>下载<a href="http://sourceforge.net/projects/pyinstaller/" target="_blank" rel="noopener">pyInstaller</a> , 解压后不需要执行安装就可以用<br>下载<a href="http://sourceforge.net/projects/pywin32/" target="_blank" rel="noopener">pywin32</a> , 这个是导出exe依赖的库</p>
-<p>写一个bat文件, 内容:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p a=拖入py文件：</span><br><span class="line">python C:\Python27\pyinstaller-<span class="number">2</span>.<span class="number">0</span>\pyinstaller.py -F <span class="variable">%a%</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure></p>
-<p>保存为pyInstaller.bat文件, 双击打开bat文件, 拖入py文件, 按回车就会自动打包成一个独立的exe文件.<br>其他参数:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-F, --onefile Py代码只有一个文件</span><br><span class="line">-D, --onedir Py代码放在一个目录中（默认是这个）</span><br><span class="line">-K, --tk 包含TCL/TK</span><br><span class="line">-d, --debug 生成debug模式的exe文件</span><br><span class="line">-w, --windowed, --noconsole 窗体exe文件(Windows Only)</span><br><span class="line">-c, --nowindowed, --console 控制台exe文件(Windows Only)</span><br><span class="line">-X, --upx 使用upx压缩exe文件</span><br><span class="line">-o <span class="built_in">DIR</span>, --out=<span class="built_in">DIR</span> 设置spec文件输出的目录，默认在PyInstaller同目录</span><br><span class="line">--icon=&lt;FILE.ICO&gt; 加入图标（Windows Only）</span><br><span class="line">-v FILE, --version=FILE 加入版本信息文件</span><br></pre></td></tr></table></figure></p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
   </div>
-  
-  
-  
-  </article>
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
 
 
           </div>
@@ -381,8 +324,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -458,6 +410,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录"><span class="nav-number">2.</span> <span class="nav-text">登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置简单密码（mysql命令环境下）"><span class="nav-number">3.</span> <span class="nav-text">设置简单密码（mysql命令环境下）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#授权指定ip访问mysql服务器"><span class="nav-number">4.</span> <span class="nav-text">授权指定ip访问mysql服务器</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -552,5 +521,8 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
 </body>
 </html>

@@ -195,6 +195,91 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2019/09/07/init-mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dai changxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/07/init-mysql/" class="post-title-link" itemprop="url">初始化mysql</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-07 21:01:21 / Modified: 21:14:27" itemprop="dateCreated datePublished" datetime="2019-09-07T21:01:21+08:00">2019-09-07</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>CentOS初始化mysql的一些必备的流程记录。</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld <span class="literal">start</span></span><br></pre></td></tr></table></figure>
+<p>查看状态：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service mysqld status</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><p>找到初始密码<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span>先找到安装信息</span><br><span class="line">cat <span class="regexp">/etc/my</span>.cnf</span><br></pre></td></tr></table></figure></p>
+<p>找到<code>log-error=/var/log/mysqld.log</code>。<br>查看这个文件<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/mysqld.<span class="built_in">log</span></span><br></pre></td></tr></table></figure></p>
+<p>找到<code>A temporary password is generated for root@localhost: xxxxxxx</code>字样。<br>使用这个密码登录<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="comment">// 回车，输入密码</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="设置简单密码（mysql命令环境下）"><a href="#设置简单密码（mysql命令环境下）" class="headerlink" title="设置简单密码（mysql命令环境下）"></a>设置简单密码（mysql命令环境下）</h3><p>需要先修改密码策略：<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> global <span class="comment">validate_password.policy=0</span>;  <span class="comment">//简单密码</span></span><br><span class="line"><span class="keyword">set</span> global <span class="comment">validate_password.length=3</span>;  <span class="comment">//最低三位</span></span><br></pre></td></tr></table></figure></p>
+<p>执行修改：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> = <span class="keyword">PASSWORD</span>(<span class="string">'123456'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="授权指定ip访问mysql服务器"><a href="#授权指定ip访问mysql服务器" class="headerlink" title="授权指定ip访问mysql服务器"></a>授权指定ip访问mysql服务器</h3><p>首先在服务器的安全策略中添加指定ip可访问3306端口。其次，登录mysql，执行语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'xxx.xxx.xxx.xxx'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'1234'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span><br><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span><br></pre></td></tr></table></figure></p>
+<p>如果要任意ip都可访问的话就将地址设置成<code>%</code>即可。</p>
+<p>参考：<br><a href="https://blog.csdn.net/fanpeizhong/article/details/73557202" target="_blank" rel="noopener">CentOS 7 64bit下安装并初始化mysql 5.7 完整过程</a><br><a href="http://www.ip138.com/" target="_blank" rel="noopener">IP地址查询</a><br><a href="https://www.sequelpro.com/" target="_blank" rel="noopener">Sequel Pro</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2019/09/07/install-easyswoole/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1001,90 +1086,6 @@
   </article>
 
     
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2015/10/01/flashbuilderquit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="dai changxin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="xin's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2015/10/01/flashbuilderquit/" class="post-title-link" itemprop="url">FlashBuilder闪退</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2015-10-01 13:50:35" itemprop="dateCreated datePublished" datetime="2015-10-01T13:50:35+08:00">2015-10-01</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-25 11:21:14" itemprop="dateModified" datetime="2019-08-25T11:21:14+08:00">2019-08-25</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天遇到打开FlashBuilder秒退, 网上找到了解决办法:<br>进入工作目录下<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.metadata/.plugins/org<span class="selector-class">.eclipse</span><span class="selector-class">.core</span><span class="selector-class">.resources</span></span><br></pre></td></tr></table></figure></p>
-<p>删除.snap文件<br>如果是苹果系统，则目录有可能是：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.metadata</span>\<span class="selector-tag">org</span><span class="selector-class">.eclipse</span><span class="selector-class">.core</span><span class="selector-class">.resources</span></span><br></pre></td></tr></table></figure>
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1122,7 +1123,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1159,7 +1160,9 @@
         
           
         
-        <span class="site-state-item-count">11</span>
+          
+        
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
