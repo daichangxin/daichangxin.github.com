@@ -54,33 +54,28 @@
   };
 </script>
 
-  <meta name="description" content="一定要加上readonly=true，否则在ios手机上会出现输入法跳出来。 12345678let input = document.createElement(&quot;input&quot;);input.readOnly = true;input.value = text;document.body.appendChild(input);input.select();input.setSelectionRa">
-<meta name="keywords" content="egret,h5">
-<meta property="og:type" content="article">
-<meta property="og:title" content="手机h5复制功能">
-<meta property="og:url" content="http://blog.greatxin.com/2018/01/12/手机h5复制功能/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="xin&#39;s blog">
+<meta property="og:url" content="http://blog.greatxin.com/page/2/index.html">
 <meta property="og:site_name" content="xin&#39;s blog">
-<meta property="og:description" content="一定要加上readonly=true，否则在ios手机上会出现输入法跳出来。 12345678let input = document.createElement(&quot;input&quot;);input.readOnly = true;input.value = text;document.body.appendChild(input);input.select();input.setSelectionRa">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-25T03:21:14.729Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="手机h5复制功能">
-<meta name="twitter:description" content="一定要加上readonly=true，否则在ios手机上会出现输入法跳出来。 12345678let input = document.createElement(&quot;input&quot;);input.readOnly = true;input.value = text;document.body.appendChild(input);input.select();input.setSelectionRa">
-  <link rel="canonical" href="http://blog.greatxin.com/2018/01/12/手机h5复制功能/">
+<meta name="twitter:title" content="xin&#39;s blog">
+  <link rel="canonical" href="http://blog.greatxin.com/page/2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true,
+    isHome: true,
+    isPost: false,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>手机h5复制功能 | xin's blog</title>
+  <title>xin's blog</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -190,18 +185,17 @@
         <div class="content-wrap">
             
 
-          <div id="content" class="content page-post-detail">
+          <div id="content" class="content page-home">
             
-
-  <div id="posts" class="posts-expand">
-    
+  <section id="posts" class="posts-expand">
+      
 
   <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2018/01/12/手机h5复制功能/">
+    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2015/10/01/simplepyinstall/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dai changxin">
@@ -213,8 +207,9 @@
       <meta itemprop="name" content="xin's blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">手机h5复制功能
-
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2015/10/01/simplepyinstall/" class="post-title-link" itemprop="url">pyinstaller简单打包</a>
           
         </h1>
 
@@ -229,7 +224,7 @@
                 
               
 
-              <time title="Created: 2018-01-12 15:43:37" itemprop="dateCreated datePublished" datetime="2018-01-12T15:43:37+08:00">2018-01-12</time>
+              <time title="Created: 2015-10-01 13:38:12" itemprop="dateCreated datePublished" datetime="2015-10-01T13:38:12+08:00">2015-10-01</time>
             </span>
           
             
@@ -256,60 +251,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>一定要加上<code>readonly=true</code>，否则在ios手机上会出现输入法跳出来。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let <span class="built_in">input</span> = document.createElement(<span class="string">"input"</span>);</span><br><span class="line"><span class="built_in">input</span>.readOnly = <span class="literal">true</span>;</span><br><span class="line"><span class="built_in">input</span>.value = text;</span><br><span class="line">document.body.appendChild(<span class="built_in">input</span>);</span><br><span class="line"><span class="built_in">input</span>.<span class="built_in">select</span>();</span><br><span class="line"><span class="built_in">input</span>.setSelectionRange(<span class="number">0</span>, <span class="built_in">input</span>.value.length);</span><br><span class="line">document.execCommand(<span class="string">"Copy"</span>);</span><br><span class="line">document.body.removeChild(<span class="built_in">input</span>);</span><br></pre></td></tr></table></figure>
+          <p>下载<a href="http://sourceforge.net/projects/pyinstaller/" target="_blank" rel="noopener">pyInstaller</a> , 解压后不需要执行安装就可以用<br>下载<a href="http://sourceforge.net/projects/pywin32/" target="_blank" rel="noopener">pywin32</a> , 这个是导出exe依赖的库</p>
+<p>写一个bat文件, 内容:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p a=拖入py文件：</span><br><span class="line">python C:\Python27\pyinstaller-<span class="number">2</span>.<span class="number">0</span>\pyinstaller.py -F <span class="variable">%a%</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure></p>
+<p>保存为pyInstaller.bat文件, 双击打开bat文件, 拖入py文件, 按回车就会自动打包成一个独立的exe文件.<br>其他参数:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-F, --onefile Py代码只有一个文件</span><br><span class="line">-D, --onedir Py代码放在一个目录中（默认是这个）</span><br><span class="line">-K, --tk 包含TCL/TK</span><br><span class="line">-d, --debug 生成debug模式的exe文件</span><br><span class="line">-w, --windowed, --noconsole 窗体exe文件(Windows Only)</span><br><span class="line">-c, --nowindowed, --console 控制台exe文件(Windows Only)</span><br><span class="line">-X, --upx 使用upx压缩exe文件</span><br><span class="line">-o <span class="built_in">DIR</span>, --out=<span class="built_in">DIR</span> 设置spec文件输出的目录，默认在PyInstaller同目录</span><br><span class="line">--icon=&lt;FILE.ICO&gt; 加入图标（Windows Only）</span><br><span class="line">-v FILE, --version=FILE 加入版本信息文件</span><br></pre></td></tr></table></figure></p>
+
+        
+      
     </div>
 
     
     
     
-        
-      
-
       <footer class="post-footer">
-          
-            
-          
-          <div class="post-tags">
-            
-              <a href="/tags/egret/" rel="tag"># egret</a>
-            
-              <a href="/tags/h5/" rel="tag"># h5</a>
-            
-          </div>
-        
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2018/01/12/egret在Android4-x下黑屏/" rel="next" title="egret在Android4.x下黑屏">
-                  <i class="fa fa-chevron-left"></i> egret在Android4.x下黑屏
-                </a>
-              
-            </div>
-
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2018/01/17/py2与py3共用/" rel="prev" title="py2与py3共用">
-                  py2与py3共用 <i class="fa fa-chevron-right"></i>
-                </a>
-              
-            </div>
-          </div>
+          <div class="post-eof"></div>
         
       </footer>
-    
   </div>
   
   
   
   </article>
 
-  </div>
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 
           </div>
@@ -497,8 +466,5 @@
 
 
   
-  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
-
-
 </body>
 </html>

@@ -195,6 +195,92 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2019/09/07/install-easyswoole/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dai changxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/07/install-easyswoole/" class="post-title-link" itemprop="url">安装easyswoole</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-07 15:26:36 / Modified: 15:43:53" itemprop="dateCreated datePublished" datetime="2019-09-07T15:26:36+08:00">2019-09-07</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>每次重新部署一台服务器的时候都累到吐血，特别是最近有个很早的服务器到期了，需要把服务搬到另外一个服务器上。<br>开始吧！</p>
+<h3 id="安装php7-1"><a href="#安装php7-1" class="headerlink" title="安装php7.1"></a>安装php7.1</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 卸载旧的php</span></span><br><span class="line">yum remove php* php-common</span><br><span class="line"><span class="comment">// 安装源</span></span><br><span class="line">rpm -Uvh <span class="string">https:</span><span class="comment">//dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span></span><br><span class="line">rpm -Uvh <span class="string">https:</span><span class="comment">//mirror.webtatic.com/yum/el7/webtatic-release.rpm</span></span><br><span class="line"><span class="comment">//查看php源</span></span><br><span class="line">yum list php*</span><br><span class="line"><span class="comment">//开始安装</span></span><br><span class="line">yum install php71w php71w-opoache php71--cli  php71w-devel</span><br><span class="line"><span class="comment">//查看php版本</span></span><br><span class="line">php -v</span><br></pre></td></tr></table></figure>
+<h3 id="安装swoole"><a href="#安装swoole" class="headerlink" title="安装swoole"></a>安装swoole</h3><p>swoole是php的一个扩展，也是easyswoole必须的依赖，需要拉取代码本地编译。<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> 安装git</span><br><span class="line">yum install git</span><br><span class="line"><span class="regexp">//</span> 下载swoole代码</span><br><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/swoole/</span>swoole-src.git</span><br><span class="line"><span class="regexp">//</span> 安装编译相关</span><br><span class="line">yum install php-pear</span><br><span class="line">yum install glibc-headers gcc-c++</span><br></pre></td></tr></table></figure></p>
+<p>开始编译了<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> swoole-src</span><br><span class="line">phpize</span><br><span class="line">./configure</span><br><span class="line"><span class="keyword">make</span> &amp;&amp; <span class="keyword">make</span> install</span><br></pre></td></tr></table></figure></p>
+<p>修改php配置，添加swoole扩展<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/php.ini</span><br><span class="line"><span class="comment">// 添加扩展</span></span><br><span class="line">extension=swoole.so</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装mysql5-7"><a href="#安装mysql5-7" class="headerlink" title="安装mysql5.7"></a>安装mysql5.7</h3><p>下载<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="regexp">//</span>dev.mysql.com<span class="regexp">/get/my</span>sql57-community-release-el7-<span class="number">7</span>.noarch.rpm</span><br></pre></td></tr></table></figure></p>
+<p>安装<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql57-community-<span class="keyword">release</span>-el7<span class="number">-7.</span>noarch.rpm</span><br><span class="line">yum <span class="keyword">install</span> mysql-community-<span class="keyword">server</span></span><br></pre></td></tr></table></figure></p>
+<p>查看版本<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mysql -V</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="安装composer"><a href="#安装composer" class="headerlink" title="安装composer"></a>安装composer</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">php -r <span class="string">"copy('https://install.phpcomposer.com/installer', 'composer-setup.php');"</span></span><br><span class="line">php composer-setup.php</span><br><span class="line">php -r <span class="string">"unlink('composer-setup.php');"</span></span><br><span class="line"><span class="comment">// 设置全局命令</span></span><br><span class="line">sudo mv composer<span class="selector-class">.phar</span> /usr/local/bin/composer</span><br><span class="line"><span class="comment">// 切换阿里镜像</span></span><br><span class="line">composer config -g repo<span class="selector-class">.packagist</span> composer https:<span class="comment">//mirrors.aliyun.com/composer/</span></span><br></pre></td></tr></table></figure>
+<h3 id="安装easyswoole"><a href="#安装easyswoole" class="headerlink" title="安装easyswoole"></a>安装easyswoole</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">composer</span> <span class="meta">require</span> easyswoole/easyswoole<span class="number">=3</span>.x</span><br><span class="line"><span class="symbol">php</span> vendor/<span class="keyword">bin/easyswoole </span>install</span><br></pre></td></tr></table></figure>
+<h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install nginx</span><br><span class="line"><span class="regexp">//</span> nginx配置路径：<span class="regexp">/etc/</span>nginx<span class="regexp">/nginx.conf</span></span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.easyswoole.com/Cn/Introduction/install.html" target="_blank" rel="noopener">easyswoole</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2019/08/25/laya-love-node-modules/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -999,94 +1085,12 @@
   </article>
 
     
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2015/10/01/simplepyinstall/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="dai changxin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="xin's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2015/10/01/simplepyinstall/" class="post-title-link" itemprop="url">pyinstaller简单打包</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2015-10-01 13:38:12" itemprop="dateCreated datePublished" datetime="2015-10-01T13:38:12+08:00">2015-10-01</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-08-25 11:21:14" itemprop="dateModified" datetime="2019-08-25T11:21:14+08:00">2019-08-25</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>下载<a href="http://sourceforge.net/projects/pyinstaller/" target="_blank" rel="noopener">pyInstaller</a> , 解压后不需要执行安装就可以用<br>下载<a href="http://sourceforge.net/projects/pywin32/" target="_blank" rel="noopener">pywin32</a> , 这个是导出exe依赖的库</p>
-<p>写一个bat文件, 内容:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> /p a=拖入py文件：</span><br><span class="line">python C:\Python27\pyinstaller-<span class="number">2</span>.<span class="number">0</span>\pyinstaller.py -F <span class="variable">%a%</span></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure></p>
-<p>保存为pyInstaller.bat文件, 双击打开bat文件, 拖入py文件, 按回车就会自动打包成一个独立的exe文件.<br>其他参数:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-F, --onefile Py代码只有一个文件</span><br><span class="line">-D, --onedir Py代码放在一个目录中（默认是这个）</span><br><span class="line">-K, --tk 包含TCL/TK</span><br><span class="line">-d, --debug 生成debug模式的exe文件</span><br><span class="line">-w, --windowed, --noconsole 窗体exe文件(Windows Only)</span><br><span class="line">-c, --nowindowed, --console 控制台exe文件(Windows Only)</span><br><span class="line">-X, --upx 使用upx压缩exe文件</span><br><span class="line">-o <span class="built_in">DIR</span>, --out=<span class="built_in">DIR</span> 设置spec文件输出的目录，默认在PyInstaller同目录</span><br><span class="line">--icon=&lt;FILE.ICO&gt; 加入图标（Windows Only）</span><br><span class="line">-v FILE, --version=FILE 加入版本信息文件</span><br></pre></td></tr></table></figure></p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
           </div>
@@ -1118,7 +1122,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1151,7 +1155,11 @@
         
           
         
-        <span class="site-state-item-count">9</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
