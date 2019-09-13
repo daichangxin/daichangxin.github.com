@@ -62,7 +62,7 @@
 <meta property="og:site_name" content="xin&#39;s blog">
 <meta property="og:description" content="每次重新部署一台服务器的时候都累到吐血，特别是最近有个很早的服务器到期了，需要把服务搬到另外一个服务器上。开始吧！ 安装php7.11234567891011// 卸载旧的phpyum remove php* php-common// 安装源rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-07T07:43:53.897Z">
+<meta property="og:updated_time" content="2019-09-08T05:49:04.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装easyswoole">
 <meta name="twitter:description" content="每次重新部署一台服务器的时候都累到吐血，特别是最近有个很早的服务器到期了，需要把服务搬到另外一个服务器上。开始吧！ 安装php7.11234567891011// 卸载旧的phpyum remove php* php-common// 安装源rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm">
@@ -229,11 +229,19 @@
                 
               
 
-              <time title="Created: 2019-09-07 15:26:36 / Modified: 15:43:53" itemprop="dateCreated datePublished" datetime="2019-09-07T15:26:36+08:00">2019-09-07</time>
+              <time title="Created: 2019-09-07 15:26:36" itemprop="dateCreated datePublished" datetime="2019-09-07T15:26:36+08:00">2019-09-07</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-09-08 13:49:04" itemprop="dateModified" datetime="2019-09-08T13:49:04+08:00">2019-09-08</time>
+              </span>
             
           
 
@@ -249,7 +257,7 @@
 
       
         <p>每次重新部署一台服务器的时候都累到吐血，特别是最近有个很早的服务器到期了，需要把服务搬到另外一个服务器上。<br>开始吧！</p>
-<h3 id="安装php7-1"><a href="#安装php7-1" class="headerlink" title="安装php7.1"></a>安装php7.1</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 卸载旧的php</span></span><br><span class="line">yum remove php* php-common</span><br><span class="line"><span class="comment">// 安装源</span></span><br><span class="line">rpm -Uvh <span class="string">https:</span><span class="comment">//dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span></span><br><span class="line">rpm -Uvh <span class="string">https:</span><span class="comment">//mirror.webtatic.com/yum/el7/webtatic-release.rpm</span></span><br><span class="line"><span class="comment">//查看php源</span></span><br><span class="line">yum list php*</span><br><span class="line"><span class="comment">//开始安装</span></span><br><span class="line">yum install php71w php71w-opoache php71--cli  php71w-devel</span><br><span class="line"><span class="comment">//查看php版本</span></span><br><span class="line">php -v</span><br></pre></td></tr></table></figure>
+<h3 id="安装php7-1"><a href="#安装php7-1" class="headerlink" title="安装php7.1"></a>安装php7.1</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 卸载旧的php</span></span><br><span class="line">yum remove php* php-common</span><br><span class="line"><span class="comment">// 安装源</span></span><br><span class="line">rpm -Uvh <span class="string">https:</span><span class="comment">//dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span></span><br><span class="line">rpm -Uvh <span class="string">https:</span><span class="comment">//mirror.webtatic.com/yum/el7/webtatic-release.rpm</span></span><br><span class="line"><span class="comment">//查看php源</span></span><br><span class="line">yum list php*</span><br><span class="line"><span class="comment">//开始安装</span></span><br><span class="line">yum install php71w php71w-opoache php71--cli  php71w-devel php71w-mysqli</span><br><span class="line"><span class="comment">//查看php版本</span></span><br><span class="line">php -v</span><br></pre></td></tr></table></figure>
 <h3 id="安装swoole"><a href="#安装swoole" class="headerlink" title="安装swoole"></a>安装swoole</h3><p>swoole是php的一个扩展，也是easyswoole必须的依赖，需要拉取代码本地编译。<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> 安装git</span><br><span class="line">yum install git</span><br><span class="line"><span class="regexp">//</span> 下载swoole代码</span><br><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/swoole/</span>swoole-src.git</span><br><span class="line"><span class="regexp">//</span> 安装编译相关</span><br><span class="line">yum install php-pear</span><br><span class="line">yum install glibc-headers gcc-c++</span><br></pre></td></tr></table></figure></p>
 <p>开始编译了<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> swoole-src</span><br><span class="line">phpize</span><br><span class="line">./configure</span><br><span class="line"><span class="keyword">make</span> &amp;&amp; <span class="keyword">make</span> install</span><br></pre></td></tr></table></figure></p>
 <p>修改php配置，添加swoole扩展<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/php.ini</span><br><span class="line"><span class="comment">// 添加扩展</span></span><br><span class="line">extension=swoole.so</span><br></pre></td></tr></table></figure></p>
@@ -353,7 +361,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -392,7 +400,9 @@
         
           
         
-        <span class="site-state-item-count">12</span>
+          
+        
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
