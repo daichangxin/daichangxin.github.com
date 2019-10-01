@@ -195,6 +195,89 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2017/03/15/bat-return-control/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dai changxin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xin's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2017/03/15/bat-return-control/" class="post-title-link" itemprop="url">bat脚本不返回控制权</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2017-03-15 11:01:11" itemprop="dateCreated datePublished" datetime="2017-03-15T11:01:11+08:00">2017-03-15</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-08-25 11:21:14" itemprop="dateModified" datetime="2019-08-25T11:21:14+08:00">2019-08-25</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>bat调用bat时, 控制权不会返回到第一个bat脚本, 导致第二个执行完就结束了, 需要加上call来调用。这里是jenkins的启动脚本，在启动jenskin前会先同步一次job和scripts库。<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> JENKINS_HOME=D:\dev\jenkins</span><br><span class="line"><span class="built_in">cd</span> /d <span class="variable">%JENKINS_HOME%</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">call</span> jenkins_updateScripts.bat</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> "restart Jenkins: http://localhost:<span class="number">1201</span>"</span><br><span class="line"><span class="built_in">net</span> stop jenkins</span><br><span class="line">java -jar <span class="variable">%JENKINS_HOME%</span>\jenkins.war --httpPort=<span class="number">1201</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://blog.greatxin.com/2017/03/15/use-git-initialize-repo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -479,7 +562,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -520,7 +603,11 @@
         
           
         
-        <span class="site-state-item-count">13</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
