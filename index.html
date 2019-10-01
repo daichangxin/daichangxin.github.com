@@ -224,7 +224,7 @@
                 
               
 
-              <time title="Created: 2019-10-01 15:58:37 / Modified: 16:22:23" itemprop="dateCreated datePublished" datetime="2019-10-01T15:58:37+08:00">2019-10-01</time>
+              <time title="Created: 2019-10-01 15:58:37 / Modified: 16:28:53" itemprop="dateCreated datePublished" datetime="2019-10-01T15:58:37+08:00">2019-10-01</time>
             </span>
           
             
@@ -256,6 +256,8 @@
 <p>在 package.json 文件的 <code>scripts</code>中添加执行命令：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"dev"</span>: <span class="string">"gulp --gulpfile .laya/dev.js &amp; http-server -p 8881"</span>,</span><br></pre></td></tr></table></figure></p>
 <p>打开 Terminal ，然后执行：<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">run</span><span class="bash"> dev</span></span><br></pre></td></tr></table></figure></p>
 <p>打开 VSCode 的调试页签，点击调试，可以断点调试了。</p>
+<h3 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h3><p>1、gulp 执行失败，多半是版本的问题，gulp 需要使用3的版本，最新是4。<br>2、gulp3 版本不再支持 nodejs10 以上，所以 nodejs 需要使用10的版本。</p>
+<p>如果想使用 nodejs10 以上版本和 gulp4 的话，改一下 dev.js 的 gulp 用法即可。</p>
 
         
       
